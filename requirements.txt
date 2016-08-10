@@ -1,4 +1,4 @@
-Django==1.4
+Django==1.7
 IPy==0.81
 Jinja2==2.8
 Markdown==2.6.4
