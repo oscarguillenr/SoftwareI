@@ -1,0 +1,54 @@
+{% load humanize %}
+<table class="table table-striped">
+  <thead></thead>
+  <tbody>
+    {% if estacionamiento.capacidad %}
+      <tr><td><b><i class="fa fa-car"></i> Puestos Particular:</b></td></tr>
+      <tr><td>{{estacionamiento.capacidad.particular}}</td></tr>
+      <tr><td><b><i class="fa fa-motorcycle"></i> Puestos Moto:</b></td></tr>
+      <tr><td>{{estacionamiento.capacidad.moto}}</td></tr>
+      <tr><td><b><i class="fa fa-truck"></i> Puestos Carga:</b></td></tr>
+      <tr><td>{{estacionamiento.capacidad.carga}}</td></tr>
+      <tr><td><b><i class="fa fa-wheelchair"></i> Puestos Discapacitados:</b></td></tr>
+      <tr><td>{{estacionamiento.capacidad.discapacitado}}</td></tr>
+      <tr><td><b><i class="fa fa-clock-o"></i> Horario apertura:</b></td></tr>
+      <tr><td>{{estacionamiento.apertura}}</td></tr>
+      <tr><td><b><i class="fa fa-clock-o"></i> Horario cierre:</b></td></tr>
+      <tr><td>{{estacionamiento.cierre}}</td></tr>
+    {% endif %}
+    {% if estacionamiento.tarifa %}
+      <tr><td><b><i class="fa fa-circle"></i></i> Esquema:</b></td></tr>
+      <tr><td>{{estacionamiento.tarifa.tipo}} </td></tr>
+    {% endif %}
+    {% if estacionamiento.tarifa.tipo == "Tarifa diferenciada para fines de semana" %}
+      <tr><td><b><i class="fa fa-money"></i></i> Tarifa regular:</b></td></tr>
+      <tr><td>BsF. {{estacionamiento.tarifa}}</td></tr>
+      <tr><td><b><i class="fa fa-money"></i></i> Tarifa fin de semana:</b></td></tr>
+      <tr><td>BsF. {{estacionamiento.tarifa.tarifa2}}</td></tr>
+    {% elif estacionamiento.tarifa.tipo == "Tarifa diferenciada por hora pico" %}
+      <tr><td><b><i class="fa fa-money"></i></i> Tarifa regular:</b></td></tr>
+      <tr><td>BsF. {{estacionamiento.tarifa}}</td></tr>
+      <tr><td><b><i class="fa fa-money"></i></i> Tarifa especial:</b></td></tr>
+      <tr><td>BsF. {{estacionamiento.tarifa.tarifa2}}</td></tr>
+      <tr><td><b><i class="fa fa-clock-o"></i> Inicio tarifa especial:</b></td></tr>
+      <tr><td>{{estacionamiento.tarifa.inicioEspecial}}</td></tr>
+      <tr><td><b><i class="fa fa-clock-o"></i> Fin tarifa especial:</b></td></tr>
+      <tr><td>{{estacionamiento.tarifa.finEspecial}}</td></tr>
+    {% elif estacionamiento.capacidad %}
+      <tr><td><b><i class="fa fa-money"></i></i> Tarifa:</b></td></tr>
+      <tr><td>BsF. {{estacionamiento.tarifa.tarifa|floatformat:2|intcomma}}</td></tr>
+    {% endif %}
+        <tr><td><b><i class="fa fa-shield"></i>
+      Cantidad de Dias de Horizonte:
+    </b></td></tr>
+    <tr><td>
+      {{estacionamiento.horizontedias}} dia(s)
+    </td></tr>
+        <tr><td><b><i class="fa fa-shield"></i>
+      Cantidad de Horas de Horizonte:
+    </b></td></tr>
+    <tr><td>
+      {{estacionamiento.horizontehoras}} horas
+    </td></tr>
+  </tbody>
+</table>

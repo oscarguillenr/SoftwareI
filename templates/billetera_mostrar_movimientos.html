@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}
+  SAGE
+{% endblock %}
+{% block innerContents%}
+  <div class="col-sm-10">
+    <h3><i class="fa fa-dollar"></i>
+      Movimientos
+    </h3>
+    <hr>
+    <div class="col-md-8">
+      <h>
+        <font size=4 color="black"> Usuario: {{usuario.nombre}}&nbsp;{{usuario.apellido}} </font>
+        <p>
+        <p>
+        <p>
+        <font size=4 color="black"> Saldo actual: {{billetera.saldo|floatformat:2}}</font>
+
+      </h>
+<!--
+      <table class="table table-striped">
+        <thead>
+
+          <tr>
+            <th>Recargas</th>
+            <th>TarjetaHabiente</th>
+            <th>QuienReservo</th>
+            <th>Fecha</th>
+            <th>ID</th>
+            <th>Crédito</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in recargas %}
+            <tr>
+            <td></td>
+            <td>{{obj.nombre}}&nbsp;{{obj.apellido}} </td> 
+            <td></td>  
+            <td>{{obj.fechaTransaccion}}</td>
+            <td>{{obj.id}}</td>
+            <td>{{obj.saldo}}</td>
+            </tr>
+          {% endfor %}
+        <tr>
+            <th>Consumos</th>
+            <th></th>
+            <th>Quien Reserva</th>
+            <th>Fecha</th>
+            <th>ID</th>
+            <th>Débito</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in consumos %}
+            <tr>
+            <td></td>
+            <td>{{obj.reserva.nombre}}</td>
+            <td>{{obj.fechaTransaccion}}</td>
+            <td>{{obj.id}}</td>
+            <td>{{obj.saldo}}</td>
+            </tr>
+          {% endfor %}
+          {% for obj in reembolsos %}
+            <tr></tr>
+            <td></td>
+            <td></td>
+            <td>{{obj.nombre}}&nbsp;{{obj.apellido}} </td>
+            <td>Fecha consumo (?) </td>
+            <td>Id consumo (?) </td>
+            <td>{{obj.saldo}} </td>
+          {% endfor %}
+        </tbody>
+      </table>
+
+-->
+
+
+
+
+      <table class="table table-striped">
+        <thead>
+
+          <tr>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>ID</th>
+            <th>Débito</th>
+            <th>Crédito</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in listaTotal %}
+            <!-- Condicional para recarga-->
+            {% if obj.tarjetaTipo  %}
+              <td> Recarga: <br> Tarjeta Habiente: {{obj.nombre}}&nbsp;{{obj.apellido}}
+                  <p>
+                  Últimos dígitos Tarjeta: {{obj.numtarjeta}}</td>
+              <td> {{obj.fechaTransaccion}}</td>
+              <td>{{obj.id}}</td>
+              <td></td>
+              <td> {{obj.saldo}}</td>
+              <tr></tr>
+            {% endif %}
+            <!-- Condicional para consumo-->
+            {% if obj.establecimiento%}
+              <td>Reservó: {{obj.reserva.nombre}}&nbsp;{{obj.reserva.apellido}}</td>
+              <td>{{obj.fechaTransaccion}}</td>
+              <td>{{obj.id}}</td>
+              <td>{{obj.saldo}}</td>
+              <td></td>
+              <tr></tr>
+            {%endif%}<!-- Condicional para consumo-->
+            {% if obj.establecimiento and obj.servicio%}
+              <td>Pago por servicio: {{obj.billetera.usuario.nombre}}&nbsp;{{obj.billetera.usuario.apellido}}</td>
+              <td>{{obj.fechaTransaccion}}</td>
+              <td>{{obj.id}}</td>
+              <td>{{obj.saldo}}</td>
+              <td></td>
+              <tr></tr>
+            {%endif%}
+            <!-- Condicional para reembolso-->
+            {% if obj.inicioReserva%}
+              <td>{{obj.mensaje}} <br>Usuario billetera: {{obj.billetera.usuario.nombre}}&nbsp;{{obj.billetera.usuario.apellido}}</td>
+              <td>{{obj.fechaTransaccion}}</td>
+              <td>{{obj.id}}</td>
+              <td></td>
+              <td>{{obj.saldo}}</td>
+              <tr></tr>
+              <td>Reservó: <br>{{obj.nombre}}&nbsp;{{obj.apellido}}</td>
+              <td>{{obj.fechaTransaccion_vieja}}</td>
+              <td>{{obj.id_viejo}}</td>
+              <td>{{obj.monto_reserva}}</td>
+              <td></td>
+              <tr></tr>
+            {%endif%}
+          {%endfor%}
+        </tbody>
+      </table>
+      <hr>
+    </div>
+{% endblock %}
