@@ -1,5 +1,5 @@
 Django==1.7
-Jinja2==2.8
+Jinja2==2.11.3
 Mako==0.9.1
 MarkupSafe==0.18
 SQLAlchemy==1.0.11
